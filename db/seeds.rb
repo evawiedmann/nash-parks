@@ -20,16 +20,24 @@ class Seed
     seed.generate_parks
   end
 
-def generate_parks
-  20.times do |i|
-    @park = Park.create(name: Faker::Address.name,
+  def generate_parks
 
+    nash_parks = ["Canyon De Chelly National Monument", "Casa Grande Ruins National Monument", "Chiricahua National Monument", "Coronado National Memorial", "Fort Bowie National Historic Site", "Glen Canyon National Recreation Area", "Grand Canyon National Park", "Hohokam Pima National Monument", "Hubbell Trading Post National Historic Site"]
 
+    cities = ["Omaha", "Chicago", "Detroit", "Des Moines", "New York", "Iowa City", "Burlington", "Charleston", "Lincoln"]
 
-      city: Faker::Address.city, state: Faker::Address.state)
-      @park.save
-      puts "Created #{Review.count} and #{Park.count} Parks."
+    states = ["CA","UT", "CO", "WA", "OR", "IA", "NY", "NJ", "NH"]
+
+    Park.destroy_all
+    9.times do |i|
+      park = Park.create!(
+        name: nash_parks.sample,
+        city: cities.sample,
+        state: states.sample
+      )
+      puts "Park #{i}: Park name is #{park.name}, city is #{park.city}, and state is #{park.state}"
+
+      end
     end
-end
-end
-Seed.begin
+  end
+  Seed.begin

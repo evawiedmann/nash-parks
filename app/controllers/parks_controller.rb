@@ -1,8 +1,12 @@
 class ParksController < ApplicationController
 
   def index
-    @parks = Park.all
-    json_response(@parks)
+    @parks = Park.search(params[:name])
+    if params[:random]
+      json_response(@parks.random)
+    else
+      json_response(@parks)
+    end
   end
 
   def show
@@ -17,12 +21,20 @@ class ParksController < ApplicationController
 
   def update
     @park = Park.find(params[:id])
-    @park.update(park_params)
+    if @quote.update!(park_params)
+      render status: 200, json: {
+        message: "This park has been updated successfully."
+      }
+    end
   end
 
   def destroy
     @park = Park.find(params[:id])
-    @park.destroy
+    if @quote.destroy!
+      render status: 200, json: {
+        message: "This park has been destroyed successfully."
+      }
+    end
   end
 
   private

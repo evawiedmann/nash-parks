@@ -1,5 +1,4 @@
 class AddParksTable < ActiveRecord::Migration[5.2]
-  def change
     def change
       create_table :parks do |t|
         t.string :name
@@ -8,4 +7,3 @@ class AddParksTable < ActiveRecord::Migration[5.2]
       end
     end
   end
-end
